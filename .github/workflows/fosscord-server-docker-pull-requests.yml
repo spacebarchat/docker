@@ -32,7 +32,7 @@ jobs:
           platforms: linux/amd64,linux/arm/v7,linux/arm64
           file: Dockerfile-prod
           push: false
-          tags: casraw/fosscord-server:latest-postgressql
+          tags: fosscord/fosscord-server:latest-postgressql
       -
         name: Build and push with sqlite
         uses: docker/build-push-action@v4
@@ -40,4 +40,4 @@ jobs:
           context: "{{defaultContext}}:fosscord-server/"
           file: Dockerfile
           push: false
-          tags: casraw/fosscord-server:latest-sqlite
+          tags: fosscord/fosscord-server:latest-sqlite

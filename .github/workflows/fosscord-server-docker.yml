@@ -32,7 +32,7 @@ jobs:
           platforms: linux/amd64
           file: Dockerfile-prod
           push: false
-          tags: casraw/fosscord-server:latest-postgressql-amd64
+          tags: fosscord/fosscord-server:latest-postgressql-amd64
           provenance: false
       -
         name: Build and push with sqlite
@@ -41,23 +41,23 @@ jobs:
           context: "{{defaultContext}}:fosscord-server/"
           file: Dockerfile
           push: false
-          tags: casraw/fosscord-server:latest-sqlite-amd64
+          tags: fosscord/fosscord-server:latest-sqlite-amd64
           provenance: false
 
       - 
         name: Create and push manifest images postgressql
         uses: Noelware/docker-manifest-action@master # or use a pinned version in the Releases tab
         with:
-          inputs: casraw/fosscord-server:latest-postgressql
-          images: casraw/fosscord-server:latest-postgressql-amd64,casraw/fosscord-server:latest-postgressql-arm64
+          inputs: fosscord/fosscord-server:latest-postgressql
+          images: fosscord/fosscord-server:latest-postgressql-amd64,fosscord/fosscord-server:latest-postgressql-arm64
           push: false
           amend: true
       - 
         name: Create and push manifest images sqlite
         uses: Noelware/docker-manifest-action@master # or use a pinned version in the Releases tab
         with:
-          inputs: casraw/fosscord-server:latest-sqlite
-          images: casraw/fosscord-server:latest-sqlite-amd64,casraw/fosscord-server:latest-sqlite-arm64
+          inputs: fosscord/fosscord-server:latest-sqlite
+          images: fosscord/fosscord-server:latest-sqlite-amd64,fosscord/fosscord-server:latest-sqlite-arm64
           push: false
           amend: true
 
@@ -86,7 +86,7 @@ jobs:
           platforms: linux/arm64
           file: Dockerfile
           push: false
-          tags: casraw/fosscord-server:latest-sqlite-arm64
+          tags: fosscord/fosscord-server:latest-sqlite-arm64
           provenance: false
       -
         name: Build and push with postgressql arm64
@@ -96,5 +96,5 @@ jobs:
           platforms: linux/arm64
           file: Dockerfile-prod
           push: false
-          tags: casraw/fosscord-server:latest-postgressql-arm64
+          tags: fosscord/fosscord-server:latest-postgressql-arm64
           provenance: false

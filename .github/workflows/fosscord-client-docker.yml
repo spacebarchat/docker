@@ -32,14 +32,14 @@ jobs:
           platforms: linux/amd64
           file: Dockerfile
           push: false
-          tags: casraw/fosscord-client:latest-amd64
+          tags: fosscord/fosscord-client:latest-amd64
           provenance: false
       - 
         name: Create and push manifest images
         uses: Noelware/docker-manifest-action@master # or use a pinned version in the Releases tab
         with:
-          inputs: casraw/fosscord-client:latest
-          images: casraw/fosscord-client:latest-amd64,casraw/fosscord-client:latest-arm64,casraw/fosscord-client:latest-armv7
+          inputs: fosscord/fosscord-client:latest
+          images: fosscord/fosscord-client:latest-amd64,fosscord/fosscord-client:latest-arm64,fosscord/fosscord-client:latest-armv7
           push: false
           amend: true
 
@@ -68,7 +68,7 @@ jobs:
           platforms: linux/arm/v7
           file: Dockerfile
           push: false
-          tags: casraw/fosscord-client:latest-armv7
+          tags: fosscord/fosscord-client:latest-armv7
           provenance: false
       -
         name: Build and push arm64
@@ -78,5 +78,5 @@ jobs:
           platforms: linux/arm64
           file: Dockerfile
           push: false
-          tags: casraw/fosscord-client:latest-arm64
+          tags: fosscord/fosscord-client:latest-arm64
           provenance: false

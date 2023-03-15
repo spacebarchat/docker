@@ -31,4 +31,4 @@ jobs:
           platforms: linux/amd64,linux/arm/v7,linux/arm64
           file: Dockerfile
           push: false
-          tags: casraw/fosscord-client:latest
+          tags: fosscord/fosscord-client:latest
