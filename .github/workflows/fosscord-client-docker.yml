@@ -1,0 +1,82 @@
+name: Build fosscord client docker image
+
+on:
+  push:
+    branches: [ "main" ]
+
+jobs:
+
+  build-amd64:
+    runs-on: [self-hosted, x64]
+    needs: build-arm64
+    steps:
+      -
+        uses: actions/checkout@v3
+      -
+        name: Set up QEMU
+        uses: docker/setup-qemu-action@v2
+      -
+        name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v2
+      -
+        name: Login to Docker Hub
+        uses: docker/login-action@v2
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+      -
+        name: Build and push
+        uses: docker/build-push-action@v4
+        with:
+          context: "{{defaultContext}}:fosscord-client/"
+          platforms: linux/amd64
+          file: Dockerfile
+          push: false
+          tags: casraw/fosscord-client:latest-amd64
+          provenance: false
+      - 
+        name: Create and push manifest images
+        uses: Noelware/docker-manifest-action@master # or use a pinned version in the Releases tab
+        with:
+          inputs: casraw/fosscord-client:latest
+          images: casraw/fosscord-client:latest-amd64,casraw/fosscord-client:latest-arm64,casraw/fosscord-client:latest-armv7
+          push: false
+          amend: true
+
+  build-arm64:
+    runs-on: [self-hosted, ARM64]
+    steps:
+      -
+        uses: actions/checkout@v3
+      -
+        name: Set up QEMU
+        uses: docker/setup-qemu-action@v2
+      -
+        name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v2
+      -
+        name: Login to Docker Hub
+        uses: docker/login-action@v2
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+      -
+        name: Build and push armv7
+        uses: docker/build-push-action@v4
+        with:
+          context: "{{defaultContext}}:fosscord-client/"
+          platforms: linux/arm/v7
+          file: Dockerfile
+          push: false
+          tags: casraw/fosscord-client:latest-armv7
+          provenance: false
+      -
+        name: Build and push arm64
+        uses: docker/build-push-action@v4
+        with:
+          context: "{{defaultContext}}:fosscord-client/"
+          platforms: linux/arm64
+          file: Dockerfile
+          push: false
+          tags: casraw/fosscord-client:latest-arm64
+          provenance: false
