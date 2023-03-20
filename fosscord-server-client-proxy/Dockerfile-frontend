@@ -10,7 +10,7 @@ RUN echo "deb https://dl.yarnpkg.com/debian/ stable main" | tee /etc/apt/sources
 RUN curl -sL https://deb.nodesource.com/setup_16.x | bash - 
 RUN apt update ; apt install -y yarn nodejs
  
-RUN git clone https://github.com/casraw/fosscord-client.git ; cd fosscord-client ; git checkout dev/bare-rewrite 
+RUN git clone https://github.com/casraw/fosscord-client.git ; cd fosscord-client ; git checkout master 
 COPY script-frontend.sh fosscord-client/script-frontend.sh
 RUN cd fosscord-client && chmod +x script-frontend.sh &&  sed -i -e 's/\r$//' script-frontend.sh && ./script-frontend.sh && yarn install && yarn build:web
 
