@@ -74,7 +74,7 @@ jobs:
         name: Build and push arm64
         uses: docker/build-push-action@v4
         with:
-          context: "{{defaultContext}}:client/"
+          context: "{{defaultContext}}:spacebar-client/"
           platforms: linux/arm64
           file: Dockerfile
           push: false

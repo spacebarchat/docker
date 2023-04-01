@@ -13,7 +13,7 @@ WORKDIR exec
 RUN mkdir -p persistent/database ; mkdir -p persistent/storage
 RUN apk add --update git ; npm install sqlite3 --save
 COPY --from=builder /devel/server/ . 
-RUN adduser -D süacebar ; chown spacebar:spacebar -R .
+RUN adduser -D spacebar ; chown spacebar:spacebar -R .
 
 USER spacebar
 
