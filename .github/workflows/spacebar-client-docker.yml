@@ -31,7 +31,7 @@ jobs:
           context: "{{defaultContext}}:spacebar-client/"
           platforms: linux/amd64
           file: Dockerfile
-          push: false
+          push: true
           tags: spacebarchat/client:latest-amd64
           provenance: false
       - 
@@ -40,7 +40,7 @@ jobs:
         with:
           inputs: spacebarchat/client:latest
           images: spacebarchat/client:latest-amd64,spacebarchat/client:latest-arm64,spacebarchat/client:latest-armv7
-          push: false
+          push: true
           amend: true
 
   build-arm64:
@@ -67,7 +67,7 @@ jobs:
           context: "{{defaultContext}}:spacebar-client/"
           platforms: linux/arm/v7
           file: Dockerfile
-          push: false
+          push: true
           tags: spacebarchat/client:latest-armv7
           provenance: false
       -
@@ -77,6 +77,6 @@ jobs:
           context: "{{defaultContext}}:spacebar-client/"
           platforms: linux/arm64
           file: Dockerfile
-          push: false
+          push: true
           tags: spacebarchat/client:latest-arm64
           provenance: false

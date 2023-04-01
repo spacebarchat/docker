@@ -31,7 +31,7 @@ jobs:
           context: "{{defaultContext}}:spacebar-server/"
           platforms: linux/amd64
           file: Dockerfile-prod
-          push: false
+          push: true
           tags: spacebarchat/server:latest-postgressql-amd64
           provenance: false
       -
@@ -40,7 +40,7 @@ jobs:
         with:
           context: "{{defaultContext}}:spacebar-server/"
           file: Dockerfile
-          push: false
+          push: true
           tags: spacebarchat/server:latest-sqlite-amd64
           provenance: false
 
@@ -50,7 +50,7 @@ jobs:
         with:
           inputs: spacebarchat/server:latest-postgressql
           images: spacebarchat/server:latest-postgressql-amd64,spacebarchat/server:latest-postgressql-arm64
-          push: false
+          push: true
           amend: true
       - 
         name: Create and push manifest images sqlite
@@ -58,7 +58,7 @@ jobs:
         with:
           inputs: spacebarchat/server:latest-sqlite
           images: spacebarchat/server:latest-sqlite-amd64,spacebarchat/server:latest-sqlite-arm64
-          push: false
+          push: true
           amend: true
 
   build-arm64:
@@ -85,7 +85,7 @@ jobs:
           context: "{{defaultContext}}:spacebar-server/"
           platforms: linux/arm64
           file: Dockerfile
-          push: false
+          push: true
           tags: spacebarchat/server:latest-sqlite-arm64
           provenance: false
       -
@@ -95,6 +95,6 @@ jobs:
           context: "{{defaultContext}}:spacebar-server/"
           platforms: linux/arm64
           file: Dockerfile-prod
-          push: false
+          push: true
           tags: spacebarchat/server:latest-postgressql-arm64
           provenance: false
