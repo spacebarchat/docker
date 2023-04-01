@@ -1,6 +1,6 @@
 version: "3.9"
 services:
-  fosscord:
+  spacebar:
     build:
       context: .
       dockerfile: Dockerfile-prod

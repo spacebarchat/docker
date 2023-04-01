@@ -1,4 +1,4 @@
-# fosscord-docker-with-nginx this is in experimental state!
+# spacebar-docker-with-nginx this is in experimental state!
 
 
 # prod environment with local file storage
@@ -7,7 +7,7 @@ Set the following environment variables in your environment (adapt POSTGRES_USER
 
 `export POSTGRES_USER=postgres`
 `export POSTGRES_PASSWORD=postgres`
-`export POSTGRES_DATABASE=fosscord`
+`export POSTGRES_DATABASE=spacebar`
 `export MAIL_CERTBOT=test@test.test`
 `export NGINX_HOST=domain.de`
 

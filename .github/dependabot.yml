@@ -11,23 +11,23 @@ updates:
       interval: "daily"
     reviewers:
       - "Casraw"
-  # Maintain dependencies for docker fosscord server
+  # Maintain dependencies for docker spacebar server
   - package-ecosystem: "docker"
-    directory: "/fosscord-server"
+    directory: "/spacebar-server"
     schedule:
       interval: "daily"
     reviewers:
       - "Casraw"
-  # Maintain dependencies for docker fosscord server-with-nginx
+  # Maintain dependencies for docker spacebar server-with-nginx
   - package-ecosystem: "docker"
-    directory: "/fosscord-server-client-proxy"
+    directory: "/spacebar-server-client-proxy"
     schedule:
       interval: "daily"
     reviewers:
       - "Casraw"
-  # Maintain dependencies for docker fosscord client
+  # Maintain dependencies for docker spacebar client
   - package-ecosystem: "docker"
-    directory: "/fosscord-client"
+    directory: "/spacebar-client"
     schedule:
       interval: "daily"
     reviewers:

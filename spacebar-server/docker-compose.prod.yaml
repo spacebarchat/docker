@@ -1,6 +1,6 @@
 version: "3.9"
 services:
-  fosscord:
+  spacebar:
     build:
       context: .
       dockerfile: Dockerfile-prod
@@ -8,7 +8,7 @@ services:
     ports:
       - "3001:3001"
     volumes:
-      - fosscord-storage:/exec/persistent/storage
+      - spacebar-storage:/exec/persistent/storage
     environment:
       DATABASE: postgres://${POSTGRES_USER}:${POSTGRES_PASSWORD}@db:5432/${POSTGRES_DATABASE}
       STORAGE_PROVIDER: "file"
@@ -34,5 +34,5 @@ services:
       timeout: 5s
       retries: 5
 volumes:
-  fosscord-storage:
+  spacebar-storage:
   db:

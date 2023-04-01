@@ -1,0 +1,19 @@
+From node:18-bullseye as builder
+
+WORKDIR devel/
+RUN apt-get update ; apt-get upgrade -y ; apt-get install -y python-is-python3 build-essential git
+RUN git clone https://github.com/spacebarchat/server.git
+RUN cd server ; npm i ; npm run setup
+
+From node:18-alpine
+
+EXPOSE 3001
+WORKDIR exec
+RUN mkdir -p persistent/database ; mkdir -p persistent/storage
+RUN apk add --update git ; npm install pg --save
+COPY --from=builder /devel/server/ . 
+RUN adduser -D spacebar ; chown spacebar:spacebar -R .
+
+USER spacebar
+
+CMD ["npm", "run", "start"]

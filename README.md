@@ -1,6 +1,6 @@
-# Fosscord Server Docker
+# Spacebar Server Docker
 
-GitHub: [Fosscord Docker GitHub](https://github.com/fosscord/docker)
+GitHub: [Spacebar Docker GitHub](https://github.com/spacebarchat/docker)
 
 ## Dev environment
 
@@ -11,21 +11,21 @@ docker-compose.yaml
 ```
 version: "3.9"
 services:
-  fosscord:
-    image: fosscord/fosscord-server:latest-sqlite
+  spacebar:
+    image: spacebarchat/server:latest-sqlite
     ports:
       - "3001:3001"
     volumes:
-      - fosscord-database:/exec/persistent/database/
-      - fosscord-storage:/exec/persistent/storage
+      - spacebar-database:/exec/persistent/database/
+      - spacebar-storage:/exec/persistent/storage
     environment:
       DATABASE: "/exec/persistent/database/database.db"
       STORAGE_PROVIDER: "file"
       STORAGE_LOCATION: "/exec/persistent/storage/"
       PORT: "3001"
 volumes:
-  fosscord-database:
-  fosscord-storage:
+  spacebar-database:
+  spacebar-storage:
 ```
 
 ## Prod environment with local file storage or with S3
@@ -35,19 +35,19 @@ Set the following environment variables in your environment (adapt POSTGRES_USER
 ```
 export POSTGRES_USER=postgres
 export POSTGRES_PASSWORD=postgres
-export POSTGRES_DATABASE=fosscord
+export POSTGRES_DATABASE=spacebar
 ```
 docker-compose.prod.yaml
 ```
 version: "3.9"
 services:
-  fosscord:
-    image: fosscord/fosscord-server:latest-postgressql
+  spacebar:
+    image: spacebarchat/server:latest-postgressql
     restart: unless-stopped
     ports:
       - "3001:3001"
     volumes:
-      - fosscord-storage:/exec/persistent/storage
+      - spacebar-storage:/exec/persistent/storage
     environment:
       DATABASE: postgres://${POSTGRES_USER}:${POSTGRES_PASSWORD}@db:5432/${POSTGRES_DATABASE}
       STORAGE_PROVIDER: "file"
@@ -73,7 +73,7 @@ services:
       timeout: 5s
       retries: 5
 volumes:
-  fosscord-storage:
+  spacebar-storage:
   db:
 ```
 To run it you need docker and docker-compose
@@ -91,8 +91,8 @@ docker-compose.prod.s3.yaml
 ```
 version: "3.9"
 services:
-  fosscord:
-    image: fosscord/fosscord-server:latest-postgressql
+  spacebar:
+    image: spacebarchat/server:latest-postgressql
     restart: unless-stopped
     ports:
       - "3001:3001"
@@ -137,16 +137,16 @@ db_1        | 2023-03-04 17:28:25.790 UTC [63] STATEMENT:  SELECT COUNT(1) AS "c
 
 ## With NGINX and client (Which is under WIP)
 
-Under fosscord-server-client-proxy there is a small project in experimental state. Which run the fosscord server, the fosscord-client with an reverse proxy and ssl in it.
+Under spacebar-server-client-proxy there is a small project in experimental state. Which run the spacebar server, the spacebar client with an reverse proxy and ssl in it.
 You need to clone the repo.
-`git clone https://github.com/fosscord/fosscord-docker.git`
-And then go to `fosscord-server-client-proxy`
+`git clone https://github.com/spacebarchat/docker.git`
+And then go to `spacebar-server-client-proxy`
 Please adapt the following env variables to your need:
 
 ```
 export POSTGRES_USER=postgres
 export POSTGRES_PASSWORD=your-password
-export POSTGRES_DATABASE=fosscord
+export POSTGRES_DATABASE=spacebar
 export MAIL_CERTBOT=your-email
 export NGINX_HOST=your-domain
 ```
@@ -154,6 +154,6 @@ export NGINX_HOST=your-domain
 To run it you need docker and docker-compose
 `sudo docker-compose -f docker-compose.prod.yaml up` or `sudo docker-compose -f docker-compose.prod.yaml up -d`
 
-# Fosscord client
+# Spacebar client
 
 Due to the fact that it is under development for now, i provide no client README. It may change in the future. Take a look at the `With NGINX and client (Which is under WIP)` section

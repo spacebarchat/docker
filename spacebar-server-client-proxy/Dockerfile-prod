@@ -1,19 +1,20 @@
-From node:16-bullseye as builder
+# syntax=docker/dockerfile:1
+From node:18-bullseye as builder
 
 WORKDIR devel/
 RUN apt-get update ; apt-get upgrade -y ; apt-get install -y python-is-python3 build-essential git
-RUN git clone https://github.com/fosscord/fosscord-server.git
-RUN cd fosscord-server ; npm i ; npm run setup
+RUN git clone https://github.com/spacebarchat/server.git
+RUN cd server ; npm i ; npm run setup
 
-From node:16-alpine
+From node:18-alpine
 
 EXPOSE 3001
 WORKDIR exec
 RUN mkdir -p persistent/database ; mkdir -p persistent/storage
 RUN apk add --update git ; npm install pg --save
-COPY --from=builder /devel/fosscord-server/ . 
-RUN adduser -D fosscord ; chown fosscord:fosscord -R .
+COPY --from=builder /devel/server/ . 
+RUN adduser -D spacebar ; chown spacebar:spacebar -R .
 
-USER fosscord
+USER spacebar
 
 CMD ["npm", "run", "start"]

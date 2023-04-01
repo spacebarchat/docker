@@ -13,7 +13,7 @@ Set the following environment variables in your environment (adapt POSTGRES_USER
 ```
 export POSTGRES_USER=postgres
 export POSTGRES_PASSWORD=postgres
-export POSTGRES_DATABASE=fosscord
+export POSTGRES_DATABASE=spacebar
 ```
 
 This clones the master branch into a docker builder and runs a build before starting it.

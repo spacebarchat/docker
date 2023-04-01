@@ -1,8 +1,9 @@
-name: Dry-run build for PRs - client
+name: Check pull request Server
 
 on:
   pull_request:
     branches: [ "master" ]
+
 
 jobs:
 
@@ -25,21 +26,39 @@ jobs:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
       -
-        name: Build and push
+        name: Build and push with postgressql
         uses: docker/build-push-action@v4
         with:
-          context: "{{defaultContext}}:fosscord-client/"
+          context: "{{defaultContext}}:server/"
           platforms: linux/amd64
+          file: Dockerfile-prod
+          push: false
+          tags: spacebarchat/server:latest-postgressql-amd64
+          provenance: false
+      -
+        name: Build and push with sqlite
+        uses: docker/build-push-action@v4
+        with:
+          context: "{{defaultContext}}:spacebar-server/"
           file: Dockerfile
           push: false
-          tags: fosscord/fosscord-client:latest-amd64
+          tags: spacebarchat/server:latest-sqlite-amd64
           provenance: false
+
       - 
-        name: Create and push manifest images
+        name: Create and push manifest images postgressql
         uses: Noelware/docker-manifest-action@master # or use a pinned version in the Releases tab
         with:
-          inputs: fosscord/fosscord-client:latest
-          images: fosscord/fosscord-client:latest-amd64,fosscord/fosscord-client:latest-arm64,fosscord/fosscord-client:latest-armv7
+          inputs: spacebarchat/server:latest-postgressql
+          images: spacebarchat/server:latest-postgressql-amd64,spacebarchat/server:latest-postgressql-arm64
+          push: false
+          amend: true
+      - 
+        name: Create and push manifest images sqlite
+        uses: Noelware/docker-manifest-action@master # or use a pinned version in the Releases tab
+        with:
+          inputs: spacebarchat/server:latest-sqlite
+          images: spacebarchat/server:latest-sqlite-amd64,spacebarchat/server:latest-sqlite-arm64
           push: false
           amend: true
 
@@ -61,22 +80,22 @@ jobs:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
       -
-        name: Build and push armv7
+        name: Build and push with sqlite arm64
         uses: docker/build-push-action@v4
         with:
-          context: "{{defaultContext}}:fosscord-client/"
-          platforms: linux/arm/v7
-          file: Dockerfile
-          push: false
-          tags: fosscord/fosscord-client:latest-armv7
-          provenance: false
-      -
-        name: Build and push arm64
-        uses: docker/build-push-action@v4
-        with:
-          context: "{{defaultContext}}:fosscord-client/"
+          context: "{{defaultContext}}:spacebar-server/"
           platforms: linux/arm64
           file: Dockerfile
           push: false
-          tags: fosscord/fosscord-client:latest-arm64
+          tags: spacebarchat/server:latest-sqlite-arm64
+          provenance: false
+      -
+        name: Build and push with postgressql arm64
+        uses: docker/build-push-action@v4
+        with:
+          context: "{{defaultContext}}:spacebar-server/"
+          platforms: linux/arm64
+          file: Dockerfile-prod
+          push: false
+          tags: spacebarchat/server:latest-postgressql-arm64
           provenance: false
