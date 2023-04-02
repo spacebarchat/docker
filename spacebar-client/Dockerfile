@@ -1,5 +1,5 @@
 # syntax=docker/dockerfile:1
-FROM ubuntu:22.04 as builder
+FROM ubuntu:23.04 as builder
 
 RUN apt update ; apt install -y curl git gnupg2 ; 
 RUN curl -sL https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add -
