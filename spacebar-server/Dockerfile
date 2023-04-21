@@ -1,12 +1,12 @@
 # syntax=docker/dockerfile:1
-From node:18-bullseye as builder
+From node:20-bullseye as builder
 
 WORKDIR devel/
 RUN apt-get update ; apt-get upgrade -y ; apt-get install -y python-is-python3 build-essential git
 RUN git clone https://github.com/spacebarchat/server.git
 RUN cd server ; npm i ; npm run setup
 
-From node:18-alpine
+From node:20-alpine
 
 EXPOSE 3001
 WORKDIR exec
