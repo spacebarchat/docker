@@ -7,7 +7,7 @@ RUN echo "deb https://dl.yarnpkg.com/debian/ stable main" | tee /etc/apt/sources
 RUN curl -sL https://deb.nodesource.com/setup_16.x | bash - 
 RUN apt update ; apt install -y yarn nodejs
 
-RUN git clone https://github.com/spacebarchat/client.git -b legacy-v2 ; cd client ; git checkout master 
+RUN git clone https://github.com/spacebarchat/client.git -b legacy-v2 ; cd client
 RUN cd client ; yarn install --network-timeout 100000 ; yarn build:web
 
 FROM nginx:alpine
