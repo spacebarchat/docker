@@ -7,7 +7,7 @@ on:
 jobs:
 
   build-amd64:
-    runs-on: [self-hosted, x64]
+    runs-on: [x64]
     needs: build-arm64
     steps:
       -
@@ -62,7 +62,7 @@ jobs:
           amend: true
 
   build-arm64:
-    runs-on: [self-hosted, ARM64]
+    runs-on: [ARM64]
     steps:
       -
         uses: actions/checkout@v3
