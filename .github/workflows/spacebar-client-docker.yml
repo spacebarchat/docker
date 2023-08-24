@@ -31,7 +31,7 @@ jobs:
           context: "{{defaultContext}}:spacebar-client/"
           platforms: linux/amd64
           file: Dockerfile
-          push: ${{ github.event_name != 'pull_request' }}
+          push: ${{ github.event_name == 'push' }}
           tags: spacebarchat/client:latest-amd64
           provenance: false
       - name: Create and push manifest images
@@ -39,7 +39,7 @@ jobs:
         with:
           inputs: spacebarchat/client:latest
           images: spacebarchat/client:latest-amd64
-          push: ${{ github.event_name != 'pull_request' }}
+          push: ${{ github.event_name == 'push' }}
           amend: true
 
 #  build-arm64:

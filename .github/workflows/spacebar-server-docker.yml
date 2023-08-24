@@ -31,7 +31,7 @@ jobs:
           context: "{{defaultContext}}:spacebar-server/"
           platforms: linux/amd64
           file: Dockerfile-prod
-          push: ${{ github.event_name != 'pull_request' }}
+          push: ${{ github.event_name == 'push' }}
           tags: spacebarchat/server:latest-postgressql-amd64
           provenance: false
       - name: Build and push with sqlite
@@ -39,7 +39,7 @@ jobs:
         with:
           context: "{{defaultContext}}:spacebar-server/"
           file: Dockerfile
-          push: ${{ github.event_name != 'pull_request' }}
+          push: ${{ github.event_name == 'push' }}
           tags: spacebarchat/server:latest-sqlite-amd64
           provenance: false
       - name: Create and push manifest images postgressql
@@ -47,14 +47,14 @@ jobs:
         with:
           inputs: spacebarchat/server:latest-postgressql
           images: spacebarchat/server:latest-postgressql-amd64
-          push: ${{ github.event_name != 'pull_request' }}
+          push: ${{ github.event_name == 'push' }}
           amend: true
       - name: Create and push manifest images sqlite
         uses: Noelware/docker-manifest-action@master # or use a pinned version in the Releases tab
         with:
           inputs: spacebarchat/server:latest-sqlite
           images: spacebarchat/server:latest-sqlite-amd64
-          push: ${{ github.event_name != 'pull_request' }}
+          push: ${{ github.event_name == 'push' }}
           amend: true
 
 #  build-arm64:
