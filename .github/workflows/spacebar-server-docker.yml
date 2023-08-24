@@ -9,11 +9,38 @@ on:
     branches: [ "master" ]
     paths:
       - 'spacebar-server/**'
+  workflow_dispatch:
+    inputs:
+      push:
+        description: 'Push to Docker Hub'
+        required: true
+        default: false
+        type: boolean
+      arm:
+        description: 'Build ARM64'
+        required: true
+        default: true
+        type: boolean
+      amd:
+        description: 'Build AMD64'
+        required: true
+        default: true
+        type: boolean
+      sqlite:
+        description: 'Build SQLite3'
+        required: false
+        default: true
+        type: boolean
+      postgresql:
+        description: 'Build PostgresSQL'
+        required: false
+        default: true
+        type: boolean
 
 jobs:
   build-amd64:
     runs-on: ubuntu-latest
-    #needs: build-arm64
+    if: ${{ inputs.amd }}
     steps:
       - uses: actions/checkout@v3
       - name: Set up QEMU
@@ -25,40 +52,41 @@ jobs:
         with:
           username: ${{ secrets.DOCKERHUB_SPACEBAR_USERNAME }}
           password: ${{ secrets.DOCKERHUB_SPACEBAR_TOKEN }}
-      - name: Build and push with postgressql
+      - name: Build and push with PostgresSQL AMD64
         uses: docker/build-push-action@v4
         with:
           context: "{{defaultContext}}:spacebar-server/"
           platforms: linux/amd64
           file: Dockerfile-prod
-          push: ${{ github.event_name == 'push' }}
+          push: ${{ github.event_name == 'push' || (github.event_name == 'workflow_dispatch' && inputs.push) }}
           tags: spacebarchat/server:latest-postgressql-amd64
           provenance: false
-      - name: Build and push with sqlite
+      - name: Build and push with SQLite3 AMD64
         uses: docker/build-push-action@v4
         with:
           context: "{{defaultContext}}:spacebar-server/"
           file: Dockerfile
-          push: ${{ github.event_name == 'push' }}
+          push: ${{ github.event_name == 'push' || (github.event_name == 'workflow_dispatch' && inputs.push) }}
           tags: spacebarchat/server:latest-sqlite-amd64
           provenance: false
-      - name: Create and push manifest images postgressql
-        uses: Noelware/docker-manifest-action@master # or use a pinned version in the Releases tab
+      - name: Create and push manifest images PostgresSQL AMD64
+        uses: Noelware/docker-manifest-action@master
         with:
           inputs: spacebarchat/server:latest-postgressql
           images: spacebarchat/server:latest-postgressql-amd64
-          push: ${{ github.event_name == 'push' }}
+          push: ${{ github.event_name == 'push' || (github.event_name == 'workflow_dispatch' && inputs.push) }}
           amend: true
-      - name: Create and push manifest images sqlite
-        uses: Noelware/docker-manifest-action@master # or use a pinned version in the Releases tab
+      - name: Create and push manifest images SQLite3 AMD64
+        uses: Noelware/docker-manifest-action@master
         with:
           inputs: spacebarchat/server:latest-sqlite
           images: spacebarchat/server:latest-sqlite-amd64
-          push: ${{ github.event_name == 'push' }}
+          push: ${{ github.event_name == 'push' || (github.event_name == 'workflow_dispatch' && inputs.push) }}
           amend: true
 
   build-arm64:
     runs-on: [self-hosted, arm64]
+    if: ${{ inputs.arm }}
     steps:
       - uses: actions/checkout@v3
       - name: Set up QEMU
@@ -70,21 +98,23 @@ jobs:
         with:
           username: ${{ secrets.DOCKERHUB_SPACEBAR_USERNAME }}
           password: ${{ secrets.DOCKERHUB_SPACEBAR_TOKEN }}
-      - name: Build and push with sqlite arm64
+      - name: Build and push with SQLite3 ARM64
+        if: ${{ inputs.sqlite }}
         uses: docker/build-push-action@v4
         with:
           context: "{{defaultContext}}:spacebar-server/"
           platforms: linux/arm64
           file: Dockerfile
-          push: ${{ github.event_name == 'push' }}
+          push: ${{ github.event_name == 'push' || (github.event_name == 'workflow_dispatch' && inputs.push) }}
           tags: spacebarchat/server:latest-sqlite-arm64
           provenance: false
-      - name: Build and push with postgressql arm64
+      - name: Build and push with PostgresSQL ARM64
+        if: ${{ inputs.postgresql }}
         uses: docker/build-push-action@v4
         with:
           context: "{{defaultContext}}:spacebar-server/"
           platforms: linux/arm64
           file: Dockerfile-prod
-          push: ${{ github.event_name == 'push' }}
+          push: ${{ github.event_name == 'push' || (github.event_name == 'workflow_dispatch' && inputs.push) }}
           tags: spacebarchat/server:latest-postgressql-arm64
           provenance: false
