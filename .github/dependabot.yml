@@ -9,26 +9,18 @@ updates:
     directory: "/" # Location of package manifests
     schedule:
       interval: "daily"
-    reviewers:
-      - "Casraw"
   # Maintain dependencies for docker spacebar server
   - package-ecosystem: "docker"
     directory: "/spacebar-server"
     schedule:
       interval: "daily"
-    reviewers:
-      - "Casraw"
   # Maintain dependencies for docker spacebar server-with-nginx
   - package-ecosystem: "docker"
     directory: "/spacebar-server-client-proxy"
     schedule:
       interval: "daily"
-    reviewers:
-      - "Casraw"
   # Maintain dependencies for docker spacebar client
   - package-ecosystem: "docker"
     directory: "/spacebar-client"
     schedule:
       interval: "daily"
-    reviewers:
-      - "Casraw"
