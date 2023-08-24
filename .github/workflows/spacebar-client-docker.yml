@@ -2,27 +2,27 @@ name: Build spacebar client docker image
 
 on:
   push:
-    branches: [ "master" ]
+    branches: ["master"]
     paths:
-      - 'spacebar-client/**'
+      - "spacebar-client/**"
   pull_request:
-    branches: [ "master" ]
+    branches: ["master"]
     paths:
-      - 'spacebar-client/**'
+      - "spacebar-client/**"
   workflow_dispatch:
     inputs:
       push:
-        description: 'Push to Docker Hub'
+        description: "Push to Docker Hub"
         required: true
         default: false
         type: boolean
       arm:
-        description: 'Build ARM64'
+        description: "Build ARM64"
         required: true
         default: true
         type: boolean
       amd:
-        description: 'Build AMD64'
+        description: "Build AMD64"
         required: true
         default: true
         type: boolean

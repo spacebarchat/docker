@@ -2,37 +2,37 @@ name: Build spacebar Server docker image
 
 on:
   push:
-    branches: [ "master" ]
+    branches: ["master"]
     paths:
-      - 'spacebar-server/**'
+      - "spacebar-server/**"
   pull_request:
-    branches: [ "master" ]
+    branches: ["master"]
     paths:
-      - 'spacebar-server/**'
+      - "spacebar-server/**"
   workflow_dispatch:
     inputs:
       push:
-        description: 'Push to Docker Hub'
+        description: "Push to Docker Hub"
         required: true
         default: false
         type: boolean
       arm:
-        description: 'Build ARM64'
+        description: "Build ARM64"
         required: true
         default: true
         type: boolean
       amd:
-        description: 'Build AMD64'
+        description: "Build AMD64"
         required: true
         default: true
         type: boolean
       sqlite:
-        description: 'Build SQLite3'
+        description: "Build SQLite3"
         required: false
         default: true
         type: boolean
       postgresql:
-        description: 'Build PostgresSQL'
+        description: "Build PostgresSQL"
         required: false
         default: true
         type: boolean
