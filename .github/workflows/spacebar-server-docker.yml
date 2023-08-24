@@ -2,9 +2,11 @@ name: Build spacebar Server docker image
 
 on:
   push:
+    branches: [ "master" ]
     paths:
       - 'spacebar-server/**'
   pull_request:
+    branches: [ "master" ]
     paths:
       - 'spacebar-server/**'
 
