@@ -2,7 +2,13 @@ name: Build spacebar client docker image
 
 on:
   push:
-    branches: ["master", "rewrite"]
+    branches: [ "master" ]
+    paths:
+      - 'spacebar-client/**'
+  pull_request:
+    branches: [ "master" ]
+    paths:
+      - 'spacebar-client/**'
 
 jobs:
   build-amd64:
@@ -25,7 +31,7 @@ jobs:
           context: "{{defaultContext}}:spacebar-client/"
           platforms: linux/amd64
           file: Dockerfile
-          push: true
+          push: ${{ github.event_name != 'pull_request' }}
           tags: spacebarchat/client:latest-amd64
           provenance: false
       - name: Create and push manifest images
@@ -33,7 +39,7 @@ jobs:
         with:
           inputs: spacebarchat/client:latest
           images: spacebarchat/client:latest-amd64
-          push: true
+          push: ${{ github.event_name != 'pull_request' }}
           amend: true
 
 #  build-arm64:
