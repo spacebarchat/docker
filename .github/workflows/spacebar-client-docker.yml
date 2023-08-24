@@ -22,7 +22,7 @@ on:
         default: true
         type: boolean
       amd:
-        description: 'Build ARM64'
+        description: 'Build AMD64'
         required: true
         default: true
         type: boolean
