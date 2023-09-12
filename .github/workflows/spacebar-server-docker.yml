@@ -53,7 +53,7 @@ jobs:
           username: ${{ secrets.DOCKERHUB_SPACEBAR_USERNAME }}
           password: ${{ secrets.DOCKERHUB_SPACEBAR_TOKEN }}
       - name: Build and push with PostgresSQL AMD64
-        uses: docker/build-push-action@v4
+        uses: docker/build-push-action@v5
         with:
           context: "{{defaultContext}}:spacebar-server/"
           platforms: linux/amd64
@@ -62,7 +62,7 @@ jobs:
           tags: spacebarchat/server:latest-postgressql-amd64
           provenance: false
       - name: Build and push with SQLite3 AMD64
-        uses: docker/build-push-action@v4
+        uses: docker/build-push-action@v5
         with:
           context: "{{defaultContext}}:spacebar-server/"
           file: Dockerfile
@@ -100,7 +100,7 @@ jobs:
           password: ${{ secrets.DOCKERHUB_SPACEBAR_TOKEN }}
       - name: Build and push with SQLite3 ARM64
         if: ${{ inputs.sqlite }}
-        uses: docker/build-push-action@v4
+        uses: docker/build-push-action@v5
         with:
           context: "{{defaultContext}}:spacebar-server/"
           platforms: linux/arm64
@@ -110,7 +110,7 @@ jobs:
           provenance: false
       - name: Build and push with PostgresSQL ARM64
         if: ${{ inputs.postgresql }}
-        uses: docker/build-push-action@v4
+        uses: docker/build-push-action@v5
         with:
           context: "{{defaultContext}}:spacebar-server/"
           platforms: linux/arm64
