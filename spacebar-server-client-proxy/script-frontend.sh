@@ -1,2 +1,2 @@
 #!/bin/bash
-sed -i 's/placeholder/'$SERVER_URL'/' .env
+sed -i "s|placeholder|$SERVER_URL|g" .env
